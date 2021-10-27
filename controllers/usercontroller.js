@@ -1,13 +1,14 @@
 const Express = require('express');
 const router = Express.Router();
 
-router.post('/signup', async (req, res) => {
+router.post('/register', async (req, res) => {
+
     UserModel.create({
         email: "user@email.com",
-        password: "password1234",
+        password: "password",
         firstName: "Billy",
         lastName: "Badbutt"
     })
-});
+})
 
 module.exports = router;
