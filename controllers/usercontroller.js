@@ -1,8 +1,13 @@
 const Express = require('express');
 const router = Express.Router();
 
-router.get('/practice', (req, res) => {
-    res.send('User Practice route!')
+router.post('/signup', async (req, res) => {
+    UserModel.create({
+        email: "user@email.com",
+        password: "password1234",
+        firstName: "Billy",
+        lastName: "Badbutt"
+    })
 });
 
 module.exports = router;
