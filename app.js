@@ -7,9 +7,6 @@ const controllers = require("./controllers");
 
 app.use("/character", controllers.characterController);
 app.use("/user", controllers.userController);
-app.listen(3000, () => {
-             console.log(`[Server]: App is listening on ${process.env.PORT}.`);
-            });
 
 dbConnection.authenticate()
     .then(() => dbConnection.sync())
