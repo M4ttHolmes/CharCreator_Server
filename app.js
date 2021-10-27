@@ -3,6 +3,8 @@ const app = Express();
 require("dotenv").config();
 const dbConnection = require("./db");
 
+app.use(Express.json());
+
 const controllers = require("./controllers");
 
 app.use("/character", controllers.characterController);
