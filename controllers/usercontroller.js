@@ -72,7 +72,7 @@ router.post("/login", async (req, res) => {
 
     } else {
         res.status(401).json({
-            message: "Incorret email or password"
+            message: "Incorrect email or password"
         })
     }
     } catch (error) {
@@ -81,5 +81,11 @@ router.post("/login", async (req, res) => {
         })
     }
 })
+
+//! STRETCH GOAL - DELETE USER
+
+/*router.delete("/delete/:id", validateJWT, async (req, rest) => {
+
+})*/
     
 module.exports = router;
