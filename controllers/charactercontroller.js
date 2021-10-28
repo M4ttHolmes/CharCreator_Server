@@ -5,7 +5,7 @@ const { CharacterModel } = require("../models")
 
 router.post('/create', async (req, res) => {
     const {name, appearance, personality, description, background} = req.body.character;
-
+    //const {id} = req.user;
     const characterEntry = {
         name,
         appearance,
@@ -20,6 +20,34 @@ router.post('/create', async (req, res) => {
         res.status(500).json({error: err})
     }
 });
+
+// router.put("/update/:id", validateJWT, async(req, res) => {
+//     const {name, appearance, personality, description, background} = req.body.character;
+//     const characterId = req.params.id;
+//     const userId = req.user.id;
+
+//     const query = {
+//         where: {
+//             id: characterId,
+//             owner: userId
+//         }
+//     };
+
+//     const updatedCharacter = {
+//         name: name,
+//         appearance: appearance,
+//         personality: personality,
+//         description: description,
+//         background: background
+//     };
+
+//     try {
+//         const update = await CharacterModel.update(updatedCharacter, query);
+//         res.status(200).json(update);
+//     } catch (err) {
+//         res.status(500).json({error: err});
+//     }
+// });
 
 
 
