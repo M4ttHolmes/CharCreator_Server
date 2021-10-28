@@ -3,8 +3,9 @@ const router = Express.Router();
 let validateJWT = require("../middleware/validate-jwt");
 const { CharacterModel } = require("../models")
 
+// IRVIN'S ENDPOINT
 router.post('/create', validateJWT, async (req, res) => {
-    const {name, appearance, personality, description, background} = req.body.character;
+    const {name, appearance, personality, description, background, race, charClass, alignment, campaignName} = req.body.character;
     const {id} = req.user;
     const characterEntry = {
         name,
@@ -12,6 +13,10 @@ router.post('/create', validateJWT, async (req, res) => {
         personality,
         description,
         background,
+        race,
+        charClass,
+        alignment,
+        campaignName,
         owner: id
     }
     try {
@@ -22,8 +27,9 @@ router.post('/create', validateJWT, async (req, res) => {
     }
 });
 
+// IRVIN'S ENDPOINT
 router.put("/update/:id", validateJWT, async(req, res) => {
-    const {name, appearance, personality, description, background} = req.body.character;
+    const {name, appearance, personality, description, background, race, charClass, alignment, campaignName} = req.body.character;
     const characterId = req.params.id;
     const userId = req.user.id;
 
@@ -39,7 +45,11 @@ router.put("/update/:id", validateJWT, async(req, res) => {
         appearance: appearance,
         personality: personality,
         description: description,
-        background: background
+        background: background,
+        race: race,
+        charClass: charClass,
+        alignment: alignment,
+        campaignName: campaignName
     };
 
     try {
@@ -51,7 +61,7 @@ router.put("/update/:id", validateJWT, async(req, res) => {
 });
 
 
-
+// MATT'S ENDPOINT
 //* GET ALL CHARACTERS
 router.get("/", async (req, res) => {
     try {
@@ -62,7 +72,7 @@ router.get("/", async (req, res) => {
     }
     });
 
-    
+// MATT'S ENDPOINT
 //* GET CHARACTER BY USER
 router.get("/mine", validateJWT, async (req, res) => {
     let { id } = req.user;
@@ -78,12 +88,13 @@ router.get("/mine", validateJWT, async (req, res) => {
         }
 });
 
-//* GET CHARACTER BY NAME
-router.get("/:name", async (req, res) => {
-    const { name } = req.params;
+// MATT'S ENDPOINT
+//* GET CHARACTER BY CAMPAIGN NAME
+router.get("/:campaignName", async (req, res) => {
+    const { campaignName } = req.params;
     try {
         const results = await CharacterModel.findAll({
-            where: { name: name }
+            where: { campaignName: campaignName }
         });
         res.status(200).json(results);
     } catch (err) {
@@ -91,6 +102,7 @@ router.get("/:name", async (req, res) => {
     }
 });
 
+// MATT'S ENDPOINT
 //* DELETE CHARACTER BY ID
 router.delete("/:id", validateJWT, async (req, res) => {
     const ownerId = req.user.id;

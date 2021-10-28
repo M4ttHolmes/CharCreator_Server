@@ -18,6 +18,18 @@ const Character = db.define('character', {
     background: {
         type: DataTypes.STRING
     },
+    race: {
+        type: DataTypes.STRING
+    },
+    charClass: {
+        type: DataTypes.STRING
+    },
+    alignment: {
+        type: DataTypes.STRING
+    },
+    campaignName: {
+        type: DataTypes.STRING
+    },
     owner: {
         type: DataTypes.INTEGER
     }
