@@ -3,7 +3,23 @@ const router = Express.Router();
 let validateJWT = require("../middleware/validate-jwt");
 const { CharacterModel } = require("../models")
 
+router.post('/create', async (req, res) => {
+    const {name, appearance, personality, description, background} = req.body.character;
 
+    const characterEntry = {
+        name,
+        appearance,
+        personality,
+        description,
+        background
+    }
+    try {
+        const newCharacter = await CharacterModel.create(characterEntry);
+        res.status(200).json(newCharacter);
+    } catch (err) {
+        res.status(500).json({error: err})
+    }
+});
 
 
 
