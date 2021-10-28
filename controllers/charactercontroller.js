@@ -3,15 +3,16 @@ const router = Express.Router();
 let validateJWT = require("../middleware/validate-jwt");
 const { CharacterModel } = require("../models")
 
-router.post('/create', async (req, res) => {
+router.post('/create', validateJWT, async (req, res) => {
     const {name, appearance, personality, description, background} = req.body.character;
-    //const {id} = req.user;
+    const {id} = req.user;
     const characterEntry = {
         name,
         appearance,
         personality,
         description,
-        background
+        background,
+        owner: id
     }
     try {
         const newCharacter = await CharacterModel.create(characterEntry);
@@ -21,71 +22,33 @@ router.post('/create', async (req, res) => {
     }
 });
 
-// router.put("/update/:id", validateJWT, async(req, res) => {
-//     const {name, appearance, personality, description, background} = req.body.character;
-//     const characterId = req.params.id;
-//     const userId = req.user.id;
+router.put("/update/:id", validateJWT, async(req, res) => {
+    const {name, appearance, personality, description, background} = req.body.character;
+    const characterId = req.params.id;
+    const userId = req.user.id;
 
-//     const query = {
-//         where: {
-//             id: characterId,
-//             owner: userId
-//         }
-//     };
+    const query = {
+        where: {
+            id: characterId,
+            owner: userId
+        }
+    };
 
-//     const updatedCharacter = {
-//         name: name,
-//         appearance: appearance,
-//         personality: personality,
-//         description: description,
-//         background: background
-//     };
+    const updatedCharacter = {
+        name: name,
+        appearance: appearance,
+        personality: personality,
+        description: description,
+        background: background
+    };
 
-//     try {
-//         const update = await CharacterModel.update(updatedCharacter, query);
-//         res.status(200).json(update);
-//     } catch (err) {
-//         res.status(500).json({error: err});
-//     }
-// });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    try {
+        const update = await CharacterModel.update(updatedCharacter, query);
+        res.status(200).json(update);
+    } catch (err) {
+        res.status(500).json({error: err});
+    }
+});
 
 
 
@@ -101,20 +64,19 @@ router.get("/", async (req, res) => {
 
     
 //* GET CHARACTER BY USER
-//! Can't run until validateJWT is working
-// router.get("/mine", validateJWT, async (req, res) => {
-//     let { id } = req.user;
-//     try {
-//         const userCharacters = await CharacterModel.findAll({
-//             where: {
-//                 owner: id
-//             }
-//         });
-//             res.status(200).json(userCharacters);
-//         } catch (err) {
-//             res.status(500).json({ error: err });
-//         }
-// });
+router.get("/mine", validateJWT, async (req, res) => {
+    let { id } = req.user;
+    try {
+        const userCharacters = await CharacterModel.findAll({
+            where: {
+                owner: id
+            }
+        });
+            res.status(200).json(userCharacters);
+        } catch (err) {
+            res.status(500).json({ error: err });
+        }
+});
 
 //* GET CHARACTER BY NAME
 router.get("/:name", async (req, res) => {
@@ -130,23 +92,22 @@ router.get("/:name", async (req, res) => {
 });
 
 //* DELETE CHARACTER BY ID
-//! Can't run until validateJWT is working
-// router.delete("/:id", validateJWT, async (req, res) => {
-//     const ownerId = req.user.id;
-//     const charId = req.params.id;
+router.delete("/:id", validateJWT, async (req, res) => {
+    const ownerId = req.user.id;
+    const charId = req.params.id;
 
-//     try {
-//         const query = {
-//             where: {
-//                 id: charId,
-//                 owner: ownerId
-//             }
-//         };
-//         await CharacterModel.destroy(query);
-//         res.status(200).json({ message: "Character Deleted."});
-//     } catch (err) {
-//         res.status(500).json({ error: err });
-//     }
-// });
+    try {
+        const query = {
+            where: {
+                id: charId,
+                owner: ownerId
+            }
+        };
+        await CharacterModel.destroy(query);
+        res.status(200).json({ message: "Character Deleted."});
+    } catch (err) {
+        res.status(500).json({ error: err });
+    }
+});
 
 module.exports = router;
