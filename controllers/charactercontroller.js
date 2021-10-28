@@ -61,8 +61,6 @@ router.post('/create', async (req, res) => {
 
 
 
-
-
 //* GET ALL CHARACTERS
 router.get("/", async (req, res) => {
     try {
@@ -107,12 +105,12 @@ router.get("/:name", async (req, res) => {
 //! Can't run until validateJWT is working
 // router.delete("/:id", validateJWT, async (req, res) => {
 //     const ownerId = req.user.id;
-//     const logId = req.params.id;
+//     const charId = req.params.id;
 
 //     try {
 //         const query = {
 //             where: {
-//                 id: logId,
+//                 id: charId,
 //                 owner: ownerId
 //             }
 //         };
