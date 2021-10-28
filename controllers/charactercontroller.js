@@ -30,7 +30,7 @@ router.put("/update/:id", validateJWT, async(req, res) => {
     const query = {
         where: {
             id: characterId,
-            owner: userId
+            owner: userId,
         }
     };
 
