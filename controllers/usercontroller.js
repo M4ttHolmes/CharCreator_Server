@@ -4,7 +4,9 @@ const { UserModel } = require("../models");
 const User = require('../models/user');
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+let validateJWT = require("../middleware/validate-jwt")
 
+//? Riley Endpoint 1
 //! USER REGISTER BELOW
      
 router.post("/register", async (req, res) => {
@@ -39,6 +41,7 @@ router.post("/register", async (req, res) => {
     }
 });
 
+//? Riley Endpoint 2
 //! USER LOGIN BELOW
 
 router.post("/login", async (req, res) => {
@@ -82,10 +85,28 @@ router.post("/login", async (req, res) => {
     }
 })
 
+//? Riley Endpoint 3
 //! STRETCH GOAL - DELETE USER
 
-/*router.delete("/delete/:id", validateJWT, async (req, rest) => {
+/*router.delete("/delete/:id", validateJWT, async (req, res) => {
+    const userId = req.user.id
 
-})*/
-    
+    try {
+        const query = {
+            where: {
+                id: userId
+        }
+    };
+    
+        await UserModel.destroy(query)
+        res.status(200).json({
+            message: "User Deleted"
+        })
+    } catch(err) {
+        res.status(500).json({
+            message: "Failed to delete User"
+        })
+    }
+})
+  */ 
 module.exports = router;
