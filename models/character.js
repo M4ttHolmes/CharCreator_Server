@@ -13,7 +13,7 @@ const Character = db.define('character', {
         type: DataTypes.STRING
     },
     description: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING
     },
     background: {
         type: DataTypes.STRING

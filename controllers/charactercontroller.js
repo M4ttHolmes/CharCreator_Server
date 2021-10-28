@@ -30,7 +30,7 @@ router.put("/update/:id", validateJWT, async(req, res) => {
     const query = {
         where: {
             id: characterId,
-            owner: userId
+            owner: userId,
         }
     };
 
@@ -52,46 +52,6 @@ router.put("/update/:id", validateJWT, async(req, res) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //* GET ALL CHARACTERS
 router.get("/", async (req, res) => {
     try {
@@ -104,7 +64,6 @@ router.get("/", async (req, res) => {
 
     
 //* GET CHARACTER BY USER
-//! Can't run until validateJWT is working
 router.get("/mine", validateJWT, async (req, res) => {
     let { id } = req.user;
     try {
@@ -133,7 +92,6 @@ router.get("/:name", async (req, res) => {
 });
 
 //* DELETE CHARACTER BY ID
-//! Can't run until validateJWT is working
 router.delete("/:id", validateJWT, async (req, res) => {
     const ownerId = req.user.id;
     const charId = req.params.id;
