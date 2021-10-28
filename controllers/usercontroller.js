@@ -88,14 +88,14 @@ router.post("/login", async (req, res) => {
 //? Riley Endpoint 3
 //! STRETCH GOAL - DELETE USER
 
-router.delete("/delete/:id", validateJWT, async (req, res) => {
+router.delete("/delete/loggedInUser", validateJWT, async (req, res) => {
     const userId = req.user.id
 
     try {
         const query = {
             where: {
                 id: userId
-        }
+        },
     };
     
         await UserModel.destroy(query)
