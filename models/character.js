@@ -4,19 +4,19 @@ const db = require('../db');
 const Character = db.define('character', {
     name: {
         type: DataTypes.STRING,
-        allowNull: false
+        //allowNull: false
     },
     appearance: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING
     },
     personality: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING
     },
     description: {
-        type: DataTypes.INTEGER
+        type: DataTypes.STRING
     },
     background: {
-        type: DataTypes.INTEGER
+        type: DataTypes.STRING
     }
 });
 
