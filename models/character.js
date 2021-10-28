@@ -4,7 +4,7 @@ const db = require('../db');
 const Character = db.define('character', {
     name: {
         type: DataTypes.STRING,
-        //allowNull: false
+        allowNull: false
     },
     appearance: {
         type: DataTypes.STRING
@@ -17,6 +17,9 @@ const Character = db.define('character', {
     },
     background: {
         type: DataTypes.STRING
+    },
+    owner: {
+        type: DataTypes.INTEGER
     }
 });
 
